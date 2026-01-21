@@ -16,14 +16,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       range: "Sheet2",
     });
 
-    const tipos = response.data.values?.map((row) => ({
+    const tipos = response.data.values || [];
+
+    const datarow = tipos.slice(1);
+
+    const tiposMap = datarow.map((row) => ({
       id: row[0],
       name: row[0],
     }));
-    console.log("ENV OK?", !!process.env.GOOGLE_APPLICATION_CREDENTIALS);
-    console.log("SHEET ID:", process.env.GOOGLE_SHEET_ID);
 
-    return res.status(200).json({ data: tipos });
+    return res.status(200).json({ data: tiposMap });
   } catch (error) {
     console.error("Erro /api/tipos:", error);
     return res.status(500).json({ error: "Erro ao buscar categorias" });
