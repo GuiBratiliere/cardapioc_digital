@@ -18,18 +18,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
 
     let pratos =
-      response.data.values?.map((row) => ({
-        id: row[0],
-        name: row[1],
-        description: row[5],
-        price: Number(row[3]),
-        image: row[7],
-        tipoId: row[2],
-      })) || [];
+      response.data.values
+        ?.slice(1)
+        .filter((row) => row[4] === "Ativo")
+        .map((row) => ({
+          id: row[0],
+          name: row[1],
+          description: row[5],
+          price: Number(row[3]),
+          image: row[7],
+          tipoId: row[2],
+        })) || [];
 
     if (category) {
       pratos = pratos.filter((p) => String(p.tipoId) === String(category));
     }
+
     return res.status(200).json({ data: pratos });
   } catch (error) {
     console.error("Erro /api/pratos:", error);
