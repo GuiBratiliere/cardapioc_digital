@@ -14,15 +14,13 @@ export interface Category {
 }
 
 export async function getCategories() {
-  const res = await fetch("http://localhost:3001/api/tipos");
+  const res = await fetch("/api/tipos");
   const json = await res.json();
   return json.data;
 }
 
 export async function getMenuItems(tipoId: string) {
-  const res = await fetch(
-    `http://localhost:3001/api/pratos?category=${tipoId}`,
-  );
+  const res = await fetch(`/api/pratos?category=${tipoId}`);
 
   const json = await res.json();
   return json.data;
