@@ -15,7 +15,7 @@ export function CategoryNav({
   return (
     <nav className="sticky top-0 z-20 bg-background/80 backdrop-blur-lg border-b border-border p-2">
       <div className="container mx-auto px-4">
-        <div className="flex gap-2 overflow-x-auto py-4 scrollbar-hide">
+        <div className="flex gap-2 overflow-x-auto p-4 scrollbar-hide">
           {categories.map((category) => (
             <button
               key={category.id}
